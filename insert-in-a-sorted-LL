@@ -1,0 +1,124 @@
+import java.util.*;
+
+class LinkedList
+{
+  Node head;
+
+  // Node Class
+  class Node
+  {
+    int data;
+    Node next;
+
+      Node (int x)		// parameterized constructor
+    {
+      data = x;
+      next = null;
+    }
+  }
+
+
+  private Node tail;
+  private int size;
+
+  // Linked list constructor
+  //
+
+  // Function to find the size of linked list
+  public int size ()
+  {
+    return this.size;
+  }
+
+  // Function to check whether linked list is empty or not
+  public boolean isEmpty ()
+  {
+    return this.size () == 0;
+  }
+
+
+
+  // Function to add a node in beginning of linked list
+  public Node insert (int data)
+  {
+    Node newNode = new Node (data);
+    newNode.next = head;
+    head = newNode;
+
+    return head;
+  }
+
+  public void display ()
+  {
+    Node node = head;
+    //as linked list will end when Node reaches Null
+    while (node != null)
+      {
+	System.out.print (node.data + " ");
+	node = node.next;
+      }
+    System.out.println ("\n");
+  }
+
+  public void sortedInsert (int data)
+  {
+    this.sortedInsert (this.head, data);
+  }
+
+  // Function to insert a node sch that the linked list remains sorted
+  private void sortedInsert (Node node, int data)
+  {
+// Create a new node first
+    Node newNode = new Node (data);
+
+// If the linked list is empty or data to be inserted is less than the head node data
+// then change the next of newNode such that it points to the head and update head
+
+    if (node == null || data <= node.data)
+      {
+	newNode.next = this.head;
+	this.head = newNode;
+
+      }
+
+    else
+      {
+
+// Move till we find the lastnode whose data is lesser than the data to be inserted
+	while (node.next != null && node.next.data < data)
+	  {
+	    node = node.next;
+	  }
+
+// Now make changes to next pointers accordingly
+	newNode.next = node.next;
+	node.next = newNode;
+      }
+
+  }
+
+}
+
+public class Main
+{
+
+  public static void main (String[]args) throws Exception
+  {
+    LinkedList ll = new LinkedList ();
+      ll.insert (97);
+      ll.insert (53);
+      ll.insert (21);
+      ll.insert (16);
+
+      System.out.println ("Linked List before Insertion");
+
+      ll.display ();
+
+      ll.sortedInsert (7);
+
+      System.out.println ("Linked List after Insertion");
+
+      ll.display ();
+  }
+
+}
